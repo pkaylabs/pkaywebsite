@@ -1,10 +1,11 @@
-import React from 'react'
+import PkayWebsite from "./components/PkayWebsite"
+
 
 const App = () => {
   return (
-    <div>
-      
-    </div>
+    <>
+      <PkayWebsite />
+    </>
   )
 }
 
