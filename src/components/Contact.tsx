@@ -118,7 +118,14 @@ const Contact = () => {
         <div className="mt-8 text-sm text-slate-600">
           <div>
             Or email us at{" "}
-            <a href="mailto:hello@pkay.software" className="text-indigo-600">
+            <a
+              href={`mailto:pkaysoftwareconsultancy@gmail.com?subject=${encodeURIComponent(
+                "Project inquiry from website"
+              )}&body=${encodeURIComponent(
+                "Hi,\n\nI want to discuss a project. Please find details below.\n\nThanks."
+              )}`}
+              className="text-indigo-600"
+            >
               pkaysoftwareconsultancy@gmail.com
             </a>
           </div>

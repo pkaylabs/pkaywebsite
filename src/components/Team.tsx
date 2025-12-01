@@ -66,16 +66,17 @@ const Team = ({ onSelect }: { onSelect: (developer: Developer) => void }) => {
 
             <div className="mt-4 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <a
+                {/* <a
                   href={dev.linkedin}
                   aria-label="LinkedIn"
                   className="text-slate-400 hover:text-indigo-600 text-sm"
                 >
                   LinkedIn
-                </a>
+                </a> */}
                 <a
                   href={dev.github}
                   aria-label="GitHub"
+                  target="_blank"
                   className="text-slate-400 hover:text-indigo-600 text-sm"
                 >
                   GitHub

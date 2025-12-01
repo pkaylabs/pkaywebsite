@@ -46,6 +46,7 @@ const Portfolio = () => {
                   <Link
                     to={it.path || "#"}
                     className="text-indigo-600 text-sm"
+                    target="_blank"
                   >
                     View →
                   </Link>

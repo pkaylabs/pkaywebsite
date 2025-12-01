@@ -71,14 +71,9 @@ const PkayWebsite = () => {
 
                 <div className="mt-4 flex items-center gap-3">
                   <a
-                    href={selectedDeveloper.linkedin}
-                    className="text-indigo-600 text-sm"
-                  >
-                    LinkedIn
-                  </a>
-                  <a
                     href={selectedDeveloper.github}
                     className="text-indigo-600 text-sm"
+                    target="_blank"
                   >
                     GitHub
                   </a>
