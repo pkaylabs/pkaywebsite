@@ -21,8 +21,8 @@ export const projects = [
     id: 3,
     title: "Lee AI - An AI-powered restaurant reservation and booking system",
     tag: "Web App",
-    img: project3,
-    path: "https://www.bayelsaxp.com/",
+    img: "https://picsum.photos/seed/pkay3/800/600",
+    path: "#",
   },
   {
     id: 4,
