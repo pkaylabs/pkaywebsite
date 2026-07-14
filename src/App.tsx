@@ -224,7 +224,7 @@ function MagneticLink({
       href={href}
       style={{ x: smoothX, y: smoothY }}
       target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
+      rel={external ? "noopener noreferrer" : undefined}
       onPointerMove={(event) => {
         if (reduceMotion || event.pointerType !== "mouse") return;
         const bounds = event.currentTarget.getBoundingClientRect();
