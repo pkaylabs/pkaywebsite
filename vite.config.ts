@@ -1,8 +1,65 @@
+import { mkdirSync, writeFileSync } from "node:fs";
+import { resolve } from "node:path";
 import { defineConfig } from "vite";
-import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 
-// https://vite.dev/config/
+const workerSource = `
+const securityHeaders = {
+  "Referrer-Policy": "strict-origin-when-cross-origin",
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "SAMEORIGIN",
+  "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
+};
+
+function secure(response) {
+  const headers = new Headers(response.headers);
+  for (const [key, value] of Object.entries(securityHeaders)) headers.set(key, value);
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
+export default {
+  async fetch(request, env) {
+    const url = new URL(request.url);
+    let response = await env.ASSETS.fetch(request);
+
+    if (
+      response.status === 404 &&
+      request.method === "GET" &&
+      request.headers.get("accept")?.includes("text/html")
+    ) {
+      response = await env.ASSETS.fetch(
+        new Request(new URL("/index.html", url), {
+          method: "GET",
+          headers: request.headers,
+        }),
+      );
+    }
+
+    return secure(response);
+  },
+};
+`;
+
+function sitesWorker() {
+  let outDir = "dist";
+  return {
+    name: "pkay-sites-worker",
+    apply: "build" as const,
+    configResolved(config) {
+      outDir = config.build.outDir;
+    },
+    closeBundle() {
+      const serverDirectory = resolve(outDir, "server");
+      mkdirSync(serverDirectory, { recursive: true });
+      writeFileSync(resolve(serverDirectory, "index.js"), workerSource.trimStart(), "utf8");
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), sitesWorker()],
 });
