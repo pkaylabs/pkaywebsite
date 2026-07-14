@@ -735,7 +735,7 @@ function App() {
                       <h3>{project.title}</h3>
                       <p>{project.copy}</p>
                       {project.url ? (
-                        <a href={project.url} target="_blank" rel="noreferrer">Visit project <ExternalLink size={15} /></a>
+                        <a href={project.url} target="_blank" rel="noopener noreferrer">Visit project <ExternalLink size={15} /></a>
                       ) : (
                         <a href="#contact">Project details on request <ArrowRight size={15} /></a>
                       )}
