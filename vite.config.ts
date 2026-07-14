@@ -45,11 +45,15 @@ export default {
 `;
 
 function sitesWorker() {
+  let outDir = "dist";
   return {
     name: "pkay-sites-worker",
     apply: "build" as const,
+    configResolved(config) {
+      outDir = config.build.outDir;
+    },
     closeBundle() {
-      const serverDirectory = resolve("dist/server");
+      const serverDirectory = resolve(outDir, "server");
       mkdirSync(serverDirectory, { recursive: true });
       writeFileSync(resolve(serverDirectory, "index.js"), workerSource.trimStart(), "utf8");
     },
