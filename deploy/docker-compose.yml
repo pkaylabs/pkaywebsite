@@ -1,0 +1,27 @@
+name: pkaylabs
+
+services:
+  web:
+    image: nginx:1.27-alpine
+    container_name: pkaylabs-web
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:rw,noexec,nosuid,size=32m
+      - /var/run:rw,noexec,nosuid,size=1m
+    volumes:
+      - /opt/pkaylabs:/srv/pkaylabs:ro
+      - /opt/pkaylabs/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    networks:
+      - edge
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1/healthz || exit 1"]
+      interval: 15s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+networks:
+  edge:
+    external: true
+    name: easternhills_default
