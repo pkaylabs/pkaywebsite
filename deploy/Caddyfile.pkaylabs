@@ -1,0 +1,18 @@
+# BEGIN PKAYLABS MANAGED BLOCK
+pkaylabs.com {
+	redir https://www.pkaylabs.com{uri} permanent
+}
+
+www.pkaylabs.com {
+	encode zstd gzip
+	reverse_proxy pkaylabs-web:80
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		-Server
+	}
+}
+# END PKAYLABS MANAGED BLOCK
