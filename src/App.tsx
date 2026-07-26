@@ -70,11 +70,10 @@ const services = [
 const projects = [
   {
     index: "01",
-    title: "Woezor Dashboard",
-    category: "Web application",
-    copy: "An operational platform designed to bring complex business activity into one clear workspace.",
-    url: "https://business.woezor.org/",
-    visual: "woezor",
+    title: "Manu Home Care",
+    category: "Website & content management system",
+    copy: "A trusted digital front door for home care services, paired with a flexible content management system.",
+    visual: "homecare",
     size: "wide",
   },
   {
@@ -88,20 +87,59 @@ const projects = [
   },
   {
     index: "03",
-    title: "BayelsaXP",
-    category: "Destination experience platform",
-    copy: "A digital home for place, culture, discovery, and the experiences that connect them.",
-    url: "https://www.bayelsaxp.com/",
-    visual: "bayelsa",
+    title: "Padlupp",
+    category: "Web application",
+    copy: "A purpose-built web application that turns a complex workflow into a focused, intuitive product experience.",
+    visual: "padlupp",
     size: "half",
   },
   {
     index: "04",
+    title: "Nano ERP",
+    category: "Enterprise resource planning",
+    copy: "A modular business platform designed to keep everyday operations connected, organised, and visible.",
+    visual: "nano",
+    size: "wide",
+  },
+  {
+    index: "05",
+    title: "AfriCare OS",
+    category: "Care operations platform",
+    copy: "A unified digital workspace created around clearer, more coordinated care operations.",
+    visual: "africare",
+    size: "half",
+  },
+  {
+    index: "06",
+    title: "CourtOS",
+    category: "Court operations platform",
+    copy: "An organised digital system for bringing court workflows and information into one focused workspace.",
+    visual: "courtos",
+    size: "half",
+  },
+  {
+    index: "07",
+    title: "Admitra",
+    category: "Web application",
+    copy: "A streamlined digital experience that makes complex application journeys feel clear and manageable.",
+    visual: "admitra",
+    size: "wide",
+  },
+  {
+    index: "08",
+    title: "ToAba",
+    category: "Digital platform",
+    copy: "A focused digital experience built to connect people, information, and action in one place.",
+    visual: "toaba",
+    size: "half",
+  },
+  {
+    index: "09",
     title: "PKay M&E System",
     category: "Monitoring & evaluation web app",
     copy: "A purpose-built system for organising, tracking, and reviewing programme information.",
     visual: "monitoring",
-    size: "wide",
+    size: "half",
   },
 ];
 
@@ -306,21 +344,91 @@ function KineticCore({ compact = false }: { compact?: boolean }) {
   );
 }
 
+const systemVisuals: Record<string, {
+  brand: string;
+  eyebrow: string;
+  title: [string, string];
+  token: string;
+  modules: [string, string, string];
+}> = {
+  homecare: {
+    brand: "MANU",
+    eyebrow: "HOME CARE / CMS",
+    title: ["Care, closer", "to home."],
+    token: "M",
+    modules: ["Services", "Content", "Team"],
+  },
+  padlupp: {
+    brand: "PADLUPP",
+    eyebrow: "WEB APPLICATION",
+    title: ["Move with", "momentum."],
+    token: "P",
+    modules: ["Workspace", "Flow", "Insights"],
+  },
+  nano: {
+    brand: "NANO",
+    eyebrow: "ENTERPRISE RESOURCE PLANNING",
+    title: ["One view.", "Every operation."],
+    token: "N",
+    modules: ["Finance", "People", "Stock"],
+  },
+  africare: {
+    brand: "AFRICARE",
+    eyebrow: "CARE OPERATIONS / OS",
+    title: ["Care, clearly", "coordinated."],
+    token: "A",
+    modules: ["Care", "Teams", "Operations"],
+  },
+  courtos: {
+    brand: "COURTOS",
+    eyebrow: "COURT OPERATIONS PLATFORM",
+    title: ["Order for", "every case."],
+    token: "C",
+    modules: ["Cases", "Calendar", "Records"],
+  },
+  admitra: {
+    brand: "ADMITRA",
+    eyebrow: "APPLICATION EXPERIENCE",
+    title: ["Clear paths.", "Better journeys."],
+    token: "A",
+    modules: ["Apply", "Review", "Decide"],
+  },
+  toaba: {
+    brand: "TOABA",
+    eyebrow: "DIGITAL PLATFORM",
+    title: ["Connected", "by design."],
+    token: "T",
+    modules: ["Discover", "Connect", "Move"],
+  },
+};
+
 function ProjectVisual({ type }: { type: string }) {
-  if (type === "woezor") {
+  const systemVisual = systemVisuals[type];
+  if (systemVisual) {
     return (
-      <div className="project-ui ui-woezor" aria-hidden="true">
-        <div className="ui-browser"><i /><i /><i /><span>WOEZOR / WORKSPACE</span></div>
-        <div className="woezor-shell">
-          <aside><BrandMark light /><i /><i /><i /><i /></aside>
-          <div className="woezor-main">
-            <div className="ui-title"><span>Business overview</span><b>LIVE</b></div>
-            <div className="ui-metrics"><i /><i /><i /></div>
-            <div className="ui-chart"><span /><span /><span /><span /><span /><span /><span /><span /></div>
-            <div className="ui-lines"><i /><i /><i /></div>
-          </div>
+      <div className={`project-ui ui-system ui-${type}`} aria-hidden="true">
+        <div className="system-grid" />
+        <div className="system-top">
+          <span>{systemVisual.brand}</span>
+          <small>{systemVisual.eyebrow}</small>
+          <i />
         </div>
-        <div className="floating-chip floating-chip--violet"><Zap size={15} /><span>All systems in view</span></div>
+        <div className="system-copy">
+          <small>{systemVisual.eyebrow}</small>
+          <strong>{systemVisual.title[0]}<br />{systemVisual.title[1]}</strong>
+          <span>Purpose-built digital product</span>
+        </div>
+        <div className="system-orbit"><i /><i /><b>{systemVisual.token}</b></div>
+        <div className="system-modules">
+          {systemVisual.modules.map((module, index) => (
+            <div key={module}>
+              <span>0{index + 1}</span>
+              <strong>{module}</strong>
+              <i />
+            </div>
+          ))}
+        </div>
+        <div className="system-status"><i /> Product system</div>
       </div>
     );
   }
@@ -332,19 +440,6 @@ function ProjectVisual({ type }: { type: string }) {
         <div className="shop-copy"><small>CURATED COMMERCE</small><strong>Find your<br />next favourite.</strong><i /></div>
         <div className="product-stack"><span /><span /><span /></div>
         <div className="shop-pill">Explore collection <ArrowUpRight size={12} /></div>
-      </div>
-    );
-  }
-
-  if (type === "bayelsa") {
-    return (
-      <div className="project-ui ui-bayelsa" aria-hidden="true">
-        <div className="bayelsa-sun" />
-        <div className="bayelsa-hills hill--one" />
-        <div className="bayelsa-hills hill--two" />
-        <div className="bayelsa-top"><span>BAYELSA</span><small>EXPERIENCE</small><i /></div>
-        <div className="bayelsa-copy"><small>DISCOVER SOMETHING NEW</small><strong>Go beyond<br />the expected.</strong></div>
-        <div className="bayelsa-card"><Globe2 /><span>Explore the destination</span></div>
       </div>
     );
   }
@@ -717,7 +812,7 @@ function App() {
                   <span className="section-kicker">02 / Selected work</span>
                   <h2>Built for real business.<br /><em>Designed to move.</em></h2>
                 </div>
-                <p>A selection of platforms and digital experiences across commerce, operations, and destination technology.</p>
+                <p>A selection of websites, operational systems, and purpose-built platforms created for real organisations.</p>
               </Reveal>
 
               <div className="projects-grid">

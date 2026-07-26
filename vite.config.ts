@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { defineConfig } from "vite";
+import { defineConfig, type ResolvedConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
 const workerSource = `
@@ -49,7 +49,7 @@ function sitesWorker() {
   return {
     name: "pkay-sites-worker",
     apply: "build" as const,
-    configResolved(config) {
+    configResolved(config: ResolvedConfig) {
       outDir = config.build.outDir;
     },
     closeBundle() {
